@@ -1,0 +1,39 @@
+// labaNumber5_middle.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <string.h>
+#include <ctype.h>
+#include <stdio.h>
+#pragma warning(disable: 4996)
+using namespace std;
+
+int main()
+{
+	setlocale(0, "ru");
+	int temp, sum = 0;
+	ifstream number("numbers.txt");
+	ofstream sumnumbers("sumNumbers.txt", ofstream::app);
+	if (!number.is_open())
+	{
+		cout << "Ошибка открытия файла";
+	}
+	cout << "Содержимое файла:" << endl;
+	sumnumbers << "File contents (number):" << endl;
+	while (!number.eof())
+	{
+		number >> temp;
+		cout << temp << endl;
+		sum = temp + sum;
+		sumnumbers << temp << endl;
+
+	}
+	cout << "Сумма: " << sum;
+	sumnumbers << "Sum of given numbers: " << sum << endl;
+	sumnumbers.close();
+	number.close();
+}
+
+
