@@ -1,0 +1,189 @@
+
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+struct Home
+{
+    string country;
+    string city;
+    string homeAddress;
+};
+
+struct Date
+{
+    int day;
+    int month;
+    int year;
+};
+
+struct Buyer
+{
+    string surname;
+    string name;
+    string middleName;
+    string sex;
+    string nationality;
+    int height;
+    int weight;
+    Date birthday;
+    Home address;
+    int phoneNumber;
+    int creditСard;
+    int bankAccountNumber;
+    void readinfo();
+
+};
+
+void Buyer::readinfo()
+{
+    cout << endl << "Name:" << name << endl;
+    cout << "Surname:" << surname << endl;
+    cout << "Middle name:" << middleName << endl;
+    cout << "Gender:" << sex << endl;
+    cout << "Nationality:" << nationality << endl;
+    cout << "Heigth:" << height << endl;
+    cout << "Weigth:" << weight << endl;
+    cout << "Credit card:" << creditСard << endl;
+    cout << "Bank account number:" << bankAccountNumber << endl;
+    cout << "Birthday:" << birthday.day << birthday.month << birthday.year << endl << endl;
+    cout << "Home address" << endl << endl;
+    cout << "Country:" << address.country << endl;
+    cout << "City:" << address.city << endl;
+    cout << "Address:" << address.homeAddress << endl;
+
+    cout << "----------------------------------------------------------" << endl;
+}
+
+int main()
+{
+    setlocale(0, "ru");
+    int countBuyer = 0;
+    cout << "Введите количество покупателей: ";
+    cin >> countBuyer;
+    getchar();
+    Buyer* client = new Buyer[countBuyer];
+    ofstream file("ClientData");
+    file << countBuyer << endl;
+    for (size_t i = 0; i < countBuyer; i++)
+    {
+        cout << "Input buyer name: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        getline(cin, client[i].name, '\n');
+        file << client[i].name << endl;
+
+        cout << "Input buyer surname: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        getline(cin, client[i].surname, '\n');
+        file << client[i].surname << endl;
+
+        cout << "Input buyer middle name: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        getline(cin, client[i].middleName, '\n');
+        file << client[i].middleName << endl;
+
+        cout << "Input buyer gender: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        getline(cin, client[i].sex, '\n');
+        file << client[i].sex << endl;
+
+        cout << "Input buyer nationality: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        getline(cin, client[i].nationality, '\n');
+        file << client[i].nationality << endl;
+
+        cout << "Input buyer heigth: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        cin >> client[i].height;
+        file << client[i].height << endl;
+
+        cout << "Input buyer weigth: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        cin >> client[i].weight;
+        file << client[i].weight << endl;
+
+        cout << "Input buyer phone number: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        cin >> client[i].phoneNumber;
+        file << client[i].phoneNumber << endl;
+
+        cout << "Input buyer credit card: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        cin >> client[i].creditСard;
+        file << client[i].creditСard << endl;
+
+        cout << "Input buyer bank account number: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        cin >> client[i].bankAccountNumber;
+        file << client[i].bankAccountNumber << endl;
+       
+        cout << "Input buyer birthday: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        cin >> client[i].birthday.day >> client[i].birthday.month >> client[i].birthday.year;
+        file << client[i].birthday.day << endl;
+        file << client[i].birthday.month << endl;
+        file << client[i].birthday.year << endl;
+
+        cout << "Input home address" << endl;
+
+        cout << "Input buyer country : ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        getline(cin , client[i].address.country, '\n');
+        file << client[i].address.country << endl;
+
+        cout << "Input buyer city: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        getline(cin , client[i].address.city, '\n');
+        file << client[i].address.city << endl;
+
+        cout << "Input buyer address: ";
+        cin.ignore(std::cin.rdbuf()->in_avail());
+        getline(cin , client[i].address.homeAddress, '\n');
+        file << client[i].address.homeAddress << endl;
+    }
+    file.close();
+    cout << "Нажмите Enter для продолжения:"<<endl;
+    getchar();
+    system("cls");
+    cout << "Данные из файла : " << endl;
+    ifstream fileOpen("ClientData");
+    fileOpen >> countBuyer;
+    string temp;
+    getline(fileOpen, temp);
+    Buyer* clientOpen = new Buyer[countBuyer];
+    for (size_t i = 0; i < countBuyer; i++)
+    {
+        getline(fileOpen, clientOpen[i].name);
+        getline(fileOpen, clientOpen[i].surname);
+        getline(fileOpen, clientOpen[i].middleName);
+        getline(fileOpen, clientOpen[i].sex);
+        getline(fileOpen, clientOpen[i].nationality);
+        fileOpen >> clientOpen[i].height;
+        fileOpen >> clientOpen[i].weight;
+        fileOpen >> clientOpen[i].phoneNumber;
+        fileOpen >> clientOpen[i].creditСard;
+        fileOpen >> clientOpen[i].bankAccountNumber;
+        fileOpen >> clientOpen[i].birthday.day;
+        fileOpen >> clientOpen[i].birthday.month;
+        fileOpen >> clientOpen[i].birthday.year;
+        getline(fileOpen , temp);
+        getline(fileOpen, clientOpen[i].address.country);
+        getline(fileOpen, clientOpen[i].address.city);
+        getline(fileOpen, clientOpen[i].address.homeAddress);
+        if (clientOpen[i].address.city == "Odesa")
+        {
+            clientOpen[i].readinfo();
+            cout << endl;
+        }
+
+
+
+    }
+
+    fileOpen.close();
+
+ 
+}
+
